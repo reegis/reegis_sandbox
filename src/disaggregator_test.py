@@ -1,6 +1,6 @@
 import os
 from disaggregator import config, data
-from reegis import geometries as geo, config as rconfig
+from reegis import geometries as geo, config as rconfig, demand_elec, demand_heat
 
 nuts_geo_fn = os.path.join(
     rconfig.get('paths', 'geometry'),
@@ -25,3 +25,8 @@ elc_consumption_hh_spattemp = data.elc_consumption_HH_spatiotemporal()
 
 print(elc_consumption_hh_spattemp[fed_states.loc['BB', 'nuts']])
 print(elc_consumption_hh_spattemp[fed_states.loc['HH', 'nuts']])
+
+# Testing Disaggregator reegis functions
+fed_states_nuts = fed_states.loc['BY', 'nuts']
+demand_elec.get_household_powerload_by_NUTS3_profile(2014, fed_states_nuts, method='SLP')
+demand_heat.get_househould_heat_demand_by_NUTS3(2014, fed_states_nuts, by='buildings', weight_by_income=False)
