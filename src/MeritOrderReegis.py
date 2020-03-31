@@ -102,7 +102,7 @@ for item in energy:
     colors.append(color)
 
 plt.bar(x, y, color=colors, width=1)
-plt.title("Merit-Order des europäischen Kraftwerkparks")
+plt.title("Merit-Order des deutschen Kraftwerkparks")
 plt.xlabel('Kummulierte Leistung in MW')
 plt.ylabel('Grenzkosten in €/MWh')
 
