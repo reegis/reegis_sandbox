@@ -105,3 +105,6 @@ plt.bar(x, y, color=colors, width=1)
 plt.title("Merit-Order des europäischen Kraftwerkparks")
 plt.xlabel('Kummulierte Leistung in MW')
 plt.ylabel('Grenzkosten in €/MWh')
+
+del em_lignite, em_gas, em_hc, em_nuclear, em_oil, temp, item, cost_nuclear, cost_lignite, cost_ETS, cost_gas, \
+    cost_hc, cost_oil, MW, color, isfossil, isnuclear, isgreater100MW
