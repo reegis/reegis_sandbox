@@ -4,6 +4,7 @@ import os
 import numpy as np
 from my_reegis import results, upstream_analysis
 
+
 # getting path to data from IFAM owncloud
 def load_agora_from_owncloud(path_to_data='ownCloud/FhG-owncloud-Quarree-AB3/Daten/Agora/', year=2014):
 
@@ -123,6 +124,7 @@ def compare_energy(energy_agora, energy_deflex):
 
     plt.ylabel('Jahresenergie in TWh', size=16)
     plt.title('Vergleich historischer Dispatch mit deflex')
+    plt.show()
 
 
 # Plot der monatlichen Emissionen
@@ -151,6 +153,7 @@ def plot_em_per_month():
     ax.set_xticks(x)
     ax.set_xticklabels(labels, size=16)
     ax.legend(loc='upper center', fontsize=16)
+    plt.title('Mittlere monatliche Emissionen')
 
 
 # Plot der monatlichen Durchschnittspreise
@@ -179,10 +182,12 @@ def plot_price_per_month():
     ax.set_xticks(x)
     ax.set_xticklabels(labels, size=16)
     ax.legend(loc='upper center', fontsize=16)
+    plt.title('Mittlere monatliche Preise')
 
 
 # Plot der Abweichung des Emissionsfaktors
-def plot_em_diff(em1=em_factor_agora, em2=em_factor_deflex):
+def plot_em_diff(em1, em2):
+    plt.figure()
     diff = em1-em2
     plt.figure(1), plt.clf()
     plt.plot(em_factor_agora, label='Agora')
@@ -192,7 +197,20 @@ def plot_em_diff(em1=em_factor_agora, em2=em_factor_deflex):
     plt.ylabel('Emissionsfaktor in g/kWh')
     plt.title('Vergleich des deflex-Emissionsfaktors mit historischen Werten')
 
+def areaplt(generation_table):
+    plt.figure()
+    cols = ['Hydro','Biomass','Nuclear','Lignite','Hard Coal','Natural Gas','Others',
+            'Pump','Wind','PV']
+    generation_plot = generation_table[cols]
+    y = list()
+    for i in generation_plot.keys():
+        y.extend([generation_plot[i]])
 
+    colors = ["#1E90FF", "#005e00", "#deff00", "#6c3012", "#222222", "#666666", "#312473", "#09516c", "#335a8a",
+              "#ffde32"]
+#    x = range(len(generation_plot.index))
+    plt.stackplot(generation_table.index, y, labels=generation_plot.keys(), colors=colors)
+    plt.legend()
 
 
 # Provide paths to sources
@@ -222,3 +240,6 @@ plot_price_per_month()
 
 # Plot emission factor deviation
 plot_em_diff(em1=em_factor_agora, em2=em_factor_deflex)
+
+# Stacked area plot of generation mix
+areaplt(generation_deflex)
